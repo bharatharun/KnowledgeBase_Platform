@@ -65,7 +65,7 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 # Define function to get response from the local server
 def get_response(user_query):
-    response = requests.post('http://localhost:5000/query', json={"query": user_query})
+    response = requests.post('http://3.110.204.99/api/query', json={"query": user_query})
     if response.status_code == 200:
         relevant_doc_content = response.json().get('response', "No answer from server.")
     else:
@@ -107,7 +107,7 @@ if not st.session_state.logged_in:
     if choice == 'Signup':
         if st.button("Register", key="register_button"):
             if username and password:
-                response = requests.post('http://localhost:5000/register', json={"username": username, "password": password})
+                response = requests.post('http://3.110.204.99/api/register', json={"username": username, "password": password})
                 if response.status_code == 201:
                     st.success("Registration successful! Please login.")
                 elif response.status_code == 400:
@@ -120,7 +120,7 @@ if not st.session_state.logged_in:
     if choice == 'Login':
         if st.button("Login", key="login_button"):
             if username and password:
-                response = requests.post('http://localhost:5000/login', json={"username": username, "password": password})
+                response = requests.post('http://3.110.204.99/api/login', json={"username": username, "password": password})
                 if response.status_code == 200:
                     st.session_state.logged_in = True
                     st.session_state.username = username  # Store username in session state
